@@ -101,6 +101,34 @@ a { color: var(--accent); }
 
 .followup-flag { color: var(--red); font-weight: 600; font-size: 12px; }
 
+.hint { color: var(--muted); font-size: 13px; margin: -8px 0 16px 0; max-width: 720px; }
+
+.back-link { display: inline-block; color: var(--muted); text-decoration: none; font-size: 13px; margin-bottom: 8px; }
+.back-link:hover { color: var(--text); }
+
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.company-card {
+  position: relative;
+  display: block;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s;
+}
+.company-card:hover { border-color: var(--accent); }
+.company-name { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+.company-meta { color: var(--muted); font-size: 13px; }
+.company-score { color: var(--muted); font-size: 12px; margin-top: 4px; }
+.card-badge { position: absolute; top: 10px; right: 10px; }
+.empty-state { color: var(--muted); padding: 24px; grid-column: 1 / -1; text-align: center; }
+
 form.outreach-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: end; margin-top: 6px; }
 form.outreach-form label { display: flex; flex-direction: column; gap: 2px; font-size: 11px; color: var(--muted); }
 form.outreach-form input { background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 4px 6px; font-size: 12px; }

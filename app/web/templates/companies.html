@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Companies - Job Crawler{% endblock %}
+{% block content %}
+<h1>Companies <span class="count">({{ total_matching }} matching postings across {{ companies|length }} companies)</span></h1>
+<p class="hint">Every posting here comes directly from each company's own live Greenhouse/Lever/Ashby job board API -- nothing is fabricated or aggregated from a third party. Click a company to see its matching roles.</p>
+
+<form method="get" action="/" class="filters">
+  <label>Level
+    <select name="level">
+      <option value="intern" {{ 'selected' if filters.level == 'intern' else '' }}>Internships</option>
+      <option value="all" {{ 'selected' if filters.level == 'all' else '' }}>All levels</option>
+      {% for lvl in level_options if lvl != 'intern' %}
+      <option value="{{ lvl }}" {{ 'selected' if lvl == filters.level else '' }}>{{ lvl }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label>Role / keyword
+    <input type="text" name="role" value="{{ filters.role }}" placeholder="e.g. LLM, agentic, RAG">
+  </label>
+
+  <label>Location
+    <select name="location">
+      <option value="">All</option>
+      <option value="remote" {{ 'selected' if filters.location == 'remote' else '' }}>Remote</option>
+      <option value="chennai" {{ 'selected' if filters.location == 'chennai' else '' }}>Chennai</option>
+      <option value="bangalore" {{ 'selected' if filters.location == 'bangalore' else '' }}>Bangalore</option>
+      <option value="other" {{ 'selected' if filters.location == 'other' else '' }}>Other</option>
+    </select>
+  </label>
+
+  <label>Source
+    <select name="source">
+      <option value="">All</option>
+      {% for src in source_options %}
+      <option value="{{ src }}" {{ 'selected' if src == filters.source else '' }}>{{ src }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label class="checkbox">
+    <input type="checkbox" name="show_red_flags" value="1" {{ 'checked' if filters.show_red_flags else '' }}>
+    Include red-flagged postings
+  </label>
+
+  <button type="submit">Apply filters</button>
+</form>
+
+<div class="company-grid">
+  {% for c in companies %}
+  <a class="company-card" href="/companies/{{ c.name | urlencode }}/jobs?level={{ filters.level | urlencode }}&location={{ filters.location | urlencode }}&source={{ filters.source | urlencode }}&role={{ filters.role | urlencode }}&show_red_flags={{ '1' if filters.show_red_flags else '' }}">
+    {% if c.has_new %}<span class="badge-new card-badge">NEW</span>{% endif %}
+    <div class="company-name">{{ c.name }}</div>
+    <div class="company-meta">{{ c.count }} matching role{{ 's' if c.count != 1 else '' }}</div>
+    <div class="company-score">Top score: {{ "%.0f"|format(c.top_score) }}</div>
+  </a>
+  {% else %}
+  <div class="empty-state">
+    No matching postings yet. Click "Refresh now" to run ingestion, or try
+    "All levels" if you're only seeing this under the Internships filter.
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

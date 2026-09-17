@@ -1,16 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Feed - Job Crawler{% endblock %}
+{% block title %}{{ company_name }} - Job Crawler{% endblock %}
 {% block content %}
-<h1>Live Feed <span class="count">({{ postings|length }} postings)</span></h1>
+<a href="/" class="back-link">&larr; All companies</a>
+<h1>{{ company_name }} <span class="count">({{ postings|length }} matching postings)</span></h1>
 
-<form method="get" action="/" class="filters">
+<form method="get" action="/companies/{{ company_name | urlencode }}/jobs" class="filters">
   <label>Level
     <select name="level">
-      <option value="">All</option>
-      {% for lvl in level_options %}
+      <option value="intern" {{ 'selected' if filters.level == 'intern' else '' }}>Internships</option>
+      <option value="all" {{ 'selected' if filters.level == 'all' else '' }}>All levels</option>
+      {% for lvl in level_options if lvl != 'intern' %}
       <option value="{{ lvl }}" {{ 'selected' if lvl == filters.level else '' }}>{{ lvl }}</option>
       {% endfor %}
     </select>
+  </label>
+
+  <label>Role / keyword
+    <input type="text" name="role" value="{{ filters.role }}" placeholder="e.g. LLM, agentic, RAG">
   </label>
 
   <label>Location
@@ -43,10 +49,8 @@
 <table class="postings">
   <thead>
     <tr>
-      <th></th>
       <th>Score</th>
       <th>Title</th>
-      <th>Company</th>
       <th>Location</th>
       <th>Level</th>
       <th>Sources</th>
@@ -55,14 +59,12 @@
   </thead>
   <tbody>
     {% for p in postings %}
-    <tr class="{{ 'red-flag' if p.red_flag else '' }} {{ 'new-posting' if p.id in new_ids else '' }}">
-      <td>{% if p.id in new_ids %}<span class="badge-new">NEW</span>{% endif %}</td>
+    <tr class="{{ 'red-flag' if p.red_flag else '' }}">
       <td class="score">{{ "%.0f"|format(p.relevance_score) }}</td>
       <td>
         <a href="{{ p.source_urls[0].url if p.source_urls else '#' }}" target="_blank" rel="noopener">{{ p.title }}</a>
         {% if p.red_flag %}<div class="flag-reason">⚠ {{ p.red_flag_reason }}</div>{% endif %}
       </td>
-      <td>{{ p.company }}</td>
       <td>{{ p.location or '—' }} <span class="work-mode">{{ p.work_mode }}</span></td>
       <td>{{ p.level_tag }}</td>
       <td>
@@ -79,7 +81,7 @@
       </td>
     </tr>
     {% else %}
-    <tr><td colspan="8">No postings yet. Click "Refresh now" to run ingestion, or wait for the scheduler's next poll.</td></tr>
+    <tr><td colspan="6">No postings match these filters for {{ company_name }}.</td></tr>
     {% endfor %}
   </tbody>
 </table>

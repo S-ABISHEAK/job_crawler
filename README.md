@@ -31,10 +31,16 @@ starts the background scheduler (each source then polls on its own
 
 ## What you get
 
-- **Feed** (`/`) — all postings sorted by relevance score, filterable by
-  level / location / source, with red-flagged postings hidden by default
-  (checkbox to show them) and a "NEW" badge for postings seen since your
-  last visit.
+- **Companies** (`/`) — companies as clickable cards (sorted by their best
+  matching posting's score), each showing how many roles match your current
+  filters. Click a company to see its actual postings. Defaults to
+  **internships only** (this crawler's main purpose) — switch the Level
+  filter to "All levels" to see everything. Also filterable by role/keyword,
+  location, and source, with red-flagged postings hidden by default
+  (checkbox to show them) and a "NEW" badge on companies with postings seen
+  since your last visit. Every posting comes directly from that company's
+  own live Greenhouse/Lever/Ashby API response — nothing here is fabricated
+  or pulled from a third-party aggregator.
 - **Pipeline** (`/pipeline`) — kanban-style board across New → Reviewed →
   Applied → Outreach Sent → Replied → Interview → Offer/Rejected. Change a
   posting's stage from its status dropdown on any page.

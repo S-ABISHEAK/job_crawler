@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Analytics - Job Crawler{% endblock %}
+{% block content %}
+<h1>Analytics</h1>
+
+<div class="stat-row">
+  <div class="stat-tile"><div class="value">{{ totals.applied }}</div><div class="label">Applied</div></div>
+  <div class="stat-tile"><div class="value">{{ totals.replied }}</div><div class="label">Replied</div></div>
+  <div class="stat-tile"><div class="value">{{ totals.interview }}</div><div class="label">Interview</div></div>
+  <div class="stat-tile"><div class="value">{{ totals.offer }}</div><div class="label">Offer</div></div>
+</div>
+
+<h2>By source</h2>
+<table class="postings">
+  <thead><tr><th>Source</th><th>Total postings</th><th>Applied</th><th>Interview</th><th>Offer</th></tr></thead>
+  <tbody>
+    {% for row in by_source %}
+    <tr>
+      <td>{{ row.source }}</td>
+      <td>{{ row.total }}</td>
+      <td>{{ row.applied }}</td>
+      <td>{{ row.interview }}</td>
+      <td>{{ row.offer }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No data yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Outreach vs no-outreach conversion</h2>
+<table class="postings">
+  <thead><tr><th></th><th>Applied</th><th>Replied</th><th>Interview</th><th>Offer</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>With outreach</td>
+      <td>{{ outreach_split.with_outreach.applied }}</td>
+      <td>{{ outreach_split.with_outreach.replied }}</td>
+      <td>{{ outreach_split.with_outreach.interview }}</td>
+      <td>{{ outreach_split.with_outreach.offer }}</td>
+    </tr>
+    <tr>
+      <td>Without outreach</td>
+      <td>{{ outreach_split.without_outreach.applied }}</td>
+      <td>{{ outreach_split.without_outreach.replied }}</td>
+      <td>{{ outreach_split.without_outreach.interview }}</td>
+      <td>{{ outreach_split.without_outreach.offer }}</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

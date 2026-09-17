@@ -1,0 +1,63 @@
+# Keywords that drive relevance scoring. Weight is added to a posting's
+# score for each match found in title+description (case-insensitive).
+# Tune freely -- no code changes required.
+
+high_signal:      # your flagship differentiators -- weight most heavily
+  weight: 8
+  terms:
+    - transformer
+    - transformer from scratch
+    - onnx
+    - decoder-only
+    - decoder only
+    - inference optimization
+    - model serving
+    - custom llm
+    - pretraining
+    - pretrained model
+
+core:             # core AI/LLM role signals
+  weight: 5
+  terms:
+    - llm
+    - large language model
+    - agentic
+    - agent framework
+    - rag
+    - retrieval augmented generation
+    - fine-tuning
+    - finetuning
+    - langchain
+    - langgraph
+    - mcp
+    - model context protocol
+    - pytorch
+    - genai
+    - generative ai
+
+secondary:        # relevant but broader / weaker signal
+  weight: 2
+  terms:
+    - machine learning
+    - deep learning
+    - nlp
+    - natural language processing
+    - prompt engineering
+    - vector database
+    - embeddings
+    - huggingface
+    - transformers library
+    - openai api
+    - anthropic api
+
+negative:         # subtract points -- suggests role is not a fit
+  weight: -4
+  terms:
+    - senior staff
+    - staff engineer
+    - 5+ years
+    - 7+ years
+    - 10+ years
+    - director
+    - vp of
+    - principal engineer

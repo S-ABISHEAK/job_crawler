@@ -1,0 +1,124 @@
+# Every ingestion source the crawler polls. Add a new source by adding an
+# entry here -- no code changes needed for api/rss types that match an
+# existing ingest module.
+#
+# type:
+#   api          -- Tier 1: Greenhouse/Lever/Ashby, driven by config/companies.yaml
+#   rss          -- Tier 2: RSS/Atom feed polling
+#   email-parse  -- Tier 3: Gmail-label based job-alert email parsing (stubbed)
+#   scrape       -- last resort, only when robots.txt explicitly allows it
+#
+# poll_interval is in minutes. risk_level is informational (low/medium/high)
+# to remind you which sources need caution.
+
+sources:
+  - name: greenhouse
+    type: api
+    driver: app.ingest.greenhouse
+    poll_interval: 180          # 3 hours
+    risk_level: low
+    notes: Public API, official and documented. Company list from config/companies.yaml.
+
+  - name: lever
+    type: api
+    driver: app.ingest.lever
+    poll_interval: 180
+    risk_level: low
+    notes: Public API, official and documented. Company list from config/companies.yaml.
+
+  - name: ashby
+    type: api
+    driver: app.ingest.ashby
+    poll_interval: 180
+    risk_level: low
+    notes: Public job-board API. Company list from config/companies.yaml.
+
+  - name: agentic-engineering-jobs
+    type: rss
+    driver: app.ingest.rss
+    url: https://agentic-engineering-jobs.com/feed
+    poll_interval: 480          # 4x/day
+    risk_level: low
+    notes: Verify feed URL and robots.txt before enabling in production use.
+
+  - name: aillmjobs
+    type: rss
+    driver: app.ingest.rss
+    url: https://aillmjobs.com/feed
+    poll_interval: 480
+    risk_level: low
+    notes: Verify feed URL and robots.txt before enabling in production use.
+
+  - name: aijobs
+    type: rss
+    driver: app.ingest.rss
+    url: https://aijobs.com/feed
+    poll_interval: 480
+    risk_level: low
+    notes: Verify feed URL and robots.txt before enabling in production use.
+
+  - name: wellfound
+    type: scrape
+    driver: app.ingest.scrape_generic
+    url: https://wellfound.com/jobs
+    poll_interval: 1440         # 1x/day, lowest priority
+    risk_level: high
+    notes: No confirmed public feed. Treat as manual-check source until a legitimate API/RSS is found. Disabled by default -- see enabled flag.
+    enabled: false
+
+  - name: cutshort
+    type: scrape
+    driver: app.ingest.scrape_generic
+    url: https://cutshort.io/jobs
+    poll_interval: 1440
+    risk_level: high
+    notes: Check robots.txt before enabling. Disabled by default.
+    enabled: false
+
+  - name: instahyre
+    type: scrape
+    driver: app.ingest.scrape_generic
+    url: https://www.instahyre.com/
+    poll_interval: 1440
+    risk_level: high
+    notes: Check robots.txt before enabling. Disabled by default.
+    enabled: false
+
+  - name: hirist
+    type: scrape
+    driver: app.ingest.scrape_generic
+    url: https://www.hirist.com/
+    poll_interval: 1440
+    risk_level: high
+    notes: Check robots.txt before enabling. Disabled by default.
+    enabled: false
+
+  - name: internshala
+    type: scrape
+    driver: app.ingest.scrape_generic
+    url: https://internshala.com/internships
+    poll_interval: 480          # 2-3x/day if robots.txt permits
+    risk_level: medium
+    notes: Check robots.txt before enabling. Disabled by default.
+    enabled: false
+
+  - name: unstop
+    type: scrape
+    driver: app.ingest.scrape_generic
+    url: https://unstop.com/internships
+    poll_interval: 480
+    risk_level: medium
+    notes: Check robots.txt before enabling. Disabled by default.
+    enabled: false
+
+  - name: gmail-alerts
+    type: email-parse
+    driver: app.ingest.email_gmail
+    poll_interval: 1440         # daily
+    risk_level: low
+    notes: >
+      Stubbed. Parses job-alert emails (LinkedIn/Naukri/Indeed/Glassdoor)
+      forwarded into a dedicated Gmail label. Fill in OAuth credentials in
+      .env and set enabled: true when ready -- see README "Enabling Gmail
+      ingestion".
+    enabled: false

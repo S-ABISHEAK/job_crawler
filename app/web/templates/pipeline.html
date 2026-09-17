@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Pipeline - Job Crawler{% endblock %}
+{% block content %}
+<h1>Pipeline Tracker</h1>
+<div class="kanban">
+  {% for stage in pipeline_stages %}
+  <div class="kanban-col">
+    <h3>{{ stage }} ({{ (by_stage[stage] or [])|length }})</h3>
+    {% for p in by_stage[stage] or [] %}
+    <div class="kanban-card">
+      <div>{{ p.title }}</div>
+      <div class="company">{{ p.company }} · {{ p.location or '—' }}</div>
+      <select class="status-select" data-posting-id="{{ p.id }}">
+        {% for s in pipeline_stages %}
+        <option value="{{ s }}" {{ 'selected' if s == p.pipeline_status else '' }}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

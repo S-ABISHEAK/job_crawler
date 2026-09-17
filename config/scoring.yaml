@@ -1,0 +1,35 @@
+# All weights are tunable without touching code. relevance_score is the
+# sum of every applicable component, roughly on a 0-100+ scale.
+
+keyword_weights_file: keywords.yaml
+
+level:
+  # level_tag -> score contribution
+  intern: 20
+  fresher: 20
+  "0-1yr": 20
+  "1-2yr": 8
+  "2+yr": -10
+  unknown: 5
+
+location:
+  remote: 15
+  chennai: 15
+  bangalore: 15
+  bengaluru: 15
+  other_india: 3
+  other: 0
+
+red_flags:
+  # phrase -> reason label. Any match sets red_flag=true and applies the penalty.
+  penalty: -25
+  patterns:
+    unpaid: "Unpaid internship"
+    "no stipend": "Unpaid internship"
+    "training phase": "Vague training-phase arrangement"
+    "certificate only": "Certificate-only, no pay"
+    "certificate and letter of recommendation": "Likely unpaid / certificate-mill"
+    "performance based stipend": "Vague/conditional stipend"
+    "unpaid internship": "Unpaid internship"
+
+base_score: 0

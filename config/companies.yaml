@@ -1,0 +1,155 @@
+# Tier 1 company seed list for Greenhouse / Lever / Ashby public job-board APIs.
+#
+# Adding a company = one entry here. No code changes needed.
+#
+#   board: greenhouse | lever | ashby
+#   slug:  the identifier used in that board's public API URL, e.g.
+#     Greenhouse: https://boards-api.greenhouse.io/v1/boards/{slug}/jobs
+#     Lever:      https://api.lever.co/v0/postings/{slug}
+#     Ashby:      https://api.ashbyhq.com/posting-api/job-board/{slug}
+#
+# HOW TO FIND A COMPANY'S REAL SLUG (slugs below are best-effort and may
+# have drifted -- verify before relying on them):
+#   1. Open the company's public "Careers" page and look at the URL --
+#      Greenhouse/Lever/Ashby-hosted boards usually embed the slug directly
+#      (e.g. jobs.lever.co/{slug}, boards.greenhouse.io/{slug},
+#      jobs.ashbyhq.com/{slug}).
+#   2. Or just hit the API URL pattern above with your guess and see if it
+#      returns JSON instead of a 404.
+#   3. Run `python -m app.ingest.verify_companies` (see README) to check
+#      every entry in this file at once and flag dead slugs.
+#
+# This seed list favors AI-native / LLM startups most likely to have
+# fresher/intern-friendly AI engineering roles. Swap or extend freely --
+# it is a starting point, not a verified-live list.
+
+companies:
+  - name: OpenAI
+    board: greenhouse
+    slug: openai
+    notes: seed guess, verify slug
+
+  - name: Anthropic
+    board: greenhouse
+    slug: anthropic
+    notes: seed guess, verify slug
+
+  - name: Cohere
+    board: greenhouse
+    slug: cohere
+    notes: seed guess, verify slug
+
+  - name: Perplexity AI
+    board: greenhouse
+    slug: perplexityai
+    notes: seed guess, verify slug
+
+  - name: Scale AI
+    board: greenhouse
+    slug: scaleai
+    notes: seed guess, verify slug
+
+  - name: Hugging Face
+    board: greenhouse
+    slug: huggingface
+    notes: seed guess, verify slug
+
+  - name: Stability AI
+    board: greenhouse
+    slug: stabilityai
+    notes: seed guess, verify slug
+
+  - name: Weights & Biases
+    board: greenhouse
+    slug: wandb
+    notes: seed guess, verify slug
+
+  - name: Pinecone
+    board: greenhouse
+    slug: pinecone
+    notes: seed guess, verify slug
+
+  - name: Runway
+    board: greenhouse
+    slug: runwayml
+    notes: seed guess, verify slug
+
+  - name: Together AI
+    board: greenhouse
+    slug: togetherai
+    notes: seed guess, verify slug
+
+  - name: Glean
+    board: greenhouse
+    slug: glean
+    notes: seed guess, verify slug
+
+  - name: Harvey
+    board: greenhouse
+    slug: harvey
+    notes: seed guess, verify slug
+
+  - name: Sierra
+    board: greenhouse
+    slug: sierra
+    notes: seed guess, verify slug
+
+  - name: Writer
+    board: greenhouse
+    slug: writer
+    notes: seed guess, verify slug
+
+  - name: ElevenLabs
+    board: greenhouse
+    slug: elevenlabs
+    notes: seed guess, verify slug
+
+  - name: Deepgram
+    board: greenhouse
+    slug: deepgram
+    notes: seed guess, verify slug
+
+  - name: AssemblyAI
+    board: greenhouse
+    slug: assemblyai
+    notes: seed guess, verify slug
+
+  - name: Humanloop
+    board: ashby
+    slug: humanloop
+    notes: seed guess, verify slug
+
+  - name: Cresta
+    board: lever
+    slug: cresta
+    notes: seed guess, verify slug
+
+  - name: Replit
+    board: lever
+    slug: replit
+    notes: seed guess, verify slug
+
+  - name: You.com
+    board: lever
+    slug: you
+    notes: seed guess, verify slug
+
+  - name: Mistral AI
+    board: ashby
+    slug: mistral
+    notes: seed guess, verify slug
+
+  - name: Adept
+    board: greenhouse
+    slug: adept
+    notes: seed guess, verify slug
+
+  - name: Inflection AI
+    board: greenhouse
+    slug: inflectionai
+    notes: seed guess, verify slug
+
+  - name: LangChain
+    board: ashby
+    slug: langchain
+    notes: seed guess, verify slug

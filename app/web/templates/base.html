@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Job Crawler{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <nav class="topnav">
+    <div class="brand">AI/LLM Job Crawler</div>
+    <div class="nav-links">
+      <a href="/" class="{{ 'active' if active == 'feed' else '' }}">Feed</a>
+      <a href="/pipeline" class="{{ 'active' if active == 'pipeline' else '' }}">Pipeline</a>
+      <a href="/outreach" class="{{ 'active' if active == 'outreach' else '' }}">Outreach</a>
+      <a href="/analytics" class="{{ 'active' if active == 'analytics' else '' }}">Analytics</a>
+    </div>
+    <form method="post" action="/refresh" class="refresh-form">
+      <button type="submit">Refresh now</button>
+    </form>
+  </nav>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

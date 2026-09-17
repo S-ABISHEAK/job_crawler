@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Outreach - Job Crawler{% endblock %}
+{% block content %}
+<h1>Outreach Log</h1>
+
+<table class="postings">
+  <thead>
+    <tr>
+      <th>Posting</th>
+      <th>Company</th>
+      <th>Contact</th>
+      <th>Channel</th>
+      <th>Date messaged</th>
+      <th>Replied</th>
+      <th>Follow-up</th>
+      <th>Add entry</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in postings %}
+      {% if p.outreach_entries %}
+        {% for entry in p.outreach_entries %}
+        <tr>
+          <td>{{ p.title }}</td>
+          <td>{{ p.company }}</td>
+          <td>{{ entry.contact_name or '—' }}</td>
+          <td>{{ entry.channel or '—' }}</td>
+          <td>{{ entry.date_messaged.strftime('%Y-%m-%d') if entry.date_messaged else '—' }}</td>
+          <td>{{ 'Yes' if entry.replied else 'No' }}</td>
+          <td>
+            {% if not entry.replied and entry.date_messaged and entry.days_since_messaged >= 7 %}
+              <span class="followup-flag">{{ entry.days_since_messaged }}d, follow up</span>
+            {% endif %}
+          </td>
+          <td></td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td>{{ p.title }}</td>
+          <td>{{ p.company }}</td>
+          <td colspan="4" class="muted">No outreach logged yet</td>
+          <td>
+            <form class="outreach-form" data-posting-id="{{ p.id }}">
+              <label>Contact <input type="text" name="contact_name"></label>
+              <label>Channel <input type="text" name="channel" placeholder="LinkedIn DM"></label>
+              <label>Date <input type="date" name="date_messaged"></label>
+              <button type="submit">Log</button>
+            </form>
+          </td>
+        </tr>
+      {% endif %}
+    {% else %}
+    <tr><td colspan="8">No postings yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

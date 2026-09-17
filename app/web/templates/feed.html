@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Feed - Job Crawler{% endblock %}
+{% block content %}
+<h1>Live Feed <span class="count">({{ postings|length }} postings)</span></h1>
+
+<form method="get" action="/" class="filters">
+  <label>Level
+    <select name="level">
+      <option value="">All</option>
+      {% for lvl in level_options %}
+      <option value="{{ lvl }}" {{ 'selected' if lvl == filters.level else '' }}>{{ lvl }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label>Location
+    <select name="location">
+      <option value="">All</option>
+      <option value="remote" {{ 'selected' if filters.location == 'remote' else '' }}>Remote</option>
+      <option value="chennai" {{ 'selected' if filters.location == 'chennai' else '' }}>Chennai</option>
+      <option value="bangalore" {{ 'selected' if filters.location == 'bangalore' else '' }}>Bangalore</option>
+      <option value="other" {{ 'selected' if filters.location == 'other' else '' }}>Other</option>
+    </select>
+  </label>
+
+  <label>Source
+    <select name="source">
+      <option value="">All</option>
+      {% for src in source_options %}
+      <option value="{{ src }}" {{ 'selected' if src == filters.source else '' }}>{{ src }}</option>
+      {% endfor %}
+    </select>
+  </label>
+
+  <label class="checkbox">
+    <input type="checkbox" name="show_red_flags" value="1" {{ 'checked' if filters.show_red_flags else '' }}>
+    Include red-flagged postings
+  </label>
+
+  <button type="submit">Apply filters</button>
+</form>
+
+<table class="postings">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Score</th>
+      <th>Title</th>
+      <th>Company</th>
+      <th>Location</th>
+      <th>Level</th>
+      <th>Sources</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in postings %}
+    <tr class="{{ 'red-flag' if p.red_flag else '' }} {{ 'new-posting' if p.id in new_ids else '' }}">
+      <td>{% if p.id in new_ids %}<span class="badge-new">NEW</span>{% endif %}</td>
+      <td class="score">{{ "%.0f"|format(p.relevance_score) }}</td>
+      <td>
+        <a href="{{ p.source_urls[0].url if p.source_urls else '#' }}" target="_blank" rel="noopener">{{ p.title }}</a>
+        {% if p.red_flag %}<div class="flag-reason">⚠ {{ p.red_flag_reason }}</div>{% endif %}
+      </td>
+      <td>{{ p.company }}</td>
+      <td>{{ p.location or '—' }} <span class="work-mode">{{ p.work_mode }}</span></td>
+      <td>{{ p.level_tag }}</td>
+      <td>
+        {% for su in p.source_urls %}
+          <a href="{{ su.url }}" target="_blank" rel="noopener" class="source-pill">{{ su.source_name }}</a>
+        {% endfor %}
+      </td>
+      <td>
+        <select class="status-select" data-posting-id="{{ p.id }}">
+          {% for stage in pipeline_stages %}
+          <option value="{{ stage }}" {{ 'selected' if stage == p.pipeline_status else '' }}>{{ stage }}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8">No postings yet. Click "Refresh now" to run ingestion, or wait for the scheduler's next poll.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

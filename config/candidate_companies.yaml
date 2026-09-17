@@ -62,6 +62,18 @@ candidates:
   - name: Two Platforms
     region: india
     notes: two.ai
+  - name: Kore.ai
+    region: india
+    notes: agentic AI platform, $985M+ raised
+  - name: Fractal Analytics
+    region: india
+    notes: decision intelligence, Fathom-R1 reasoning model
+  - name: SoketAI
+    region: india
+    notes: govt-backed sovereign LLM compute recipient
+  - name: Gan.ai
+    region: india
+    notes: govt-backed sovereign LLM compute recipient (distinct from Gnani.ai)
 
   # --- France: LLM / AI ---
   - name: Mistral AI
@@ -93,3 +105,83 @@ candidates:
   - name: Poolside
     region: france
     notes: code-generation LLM, France-founded
+  - name: H Company
+    region: france
+    notes: formerly Holistic, ex-DeepMind founders, foundation models
+  - name: AMI Labs
+    region: france
+    notes: Advanced Machine Intelligence, world models
+  - name: Julie Desk
+    region: france
+    notes: AI scheduling assistant
+
+  # --- Global (mostly US): AI infra/inference, added via web research Sep 2026 ---
+  - name: Fireworks AI
+    region: global
+    notes: inference platform
+  - name: Baseten
+    region: global
+    notes: inference/model deployment platform
+  - name: Modal
+    region: global
+    notes: AI compute/deployment infra
+  - name: Groq
+    region: global
+    notes: custom inference silicon
+  - name: Cerebras
+    region: global
+    notes: custom inference silicon
+  - name: SambaNova
+    region: global
+    notes: custom inference silicon
+  - name: DeepInfra
+    region: global
+    notes: inference API marketplace
+  - name: Anysphere
+    region: global
+    notes: makes Cursor, AI coding IDE
+  - name: Cognition AI
+    region: global
+    notes: makes Devin, autonomous coding agent
+  - name: Magic
+    region: global
+    notes: AI coding agent
+  - name: Tabnine
+    region: global
+    notes: AI coding assistant
+  - name: Legora
+    region: global
+    notes: legal AI
+  - name: EvenUp
+    region: global
+    notes: legal AI
+  - name: Spellbook
+    region: global
+    notes: legal AI (contracts)
+  - name: Robin AI
+    region: global
+    notes: legal AI (contracts)
+  - name: Luminance
+    region: global
+    notes: legal AI
+  - name: Eudia
+    region: global
+    notes: legal AI
+  - name: Luma AI
+    region: global
+    notes: video/3D generation
+  - name: Synthesia
+    region: global
+    notes: AI video generation
+  - name: HappyRobot
+    region: global
+    notes: enterprise AI voice agents
+  - name: Zenity
+    region: global
+    notes: enterprise agent security/governance
+  - name: Imbue
+    region: global
+    notes: AI agents/reasoning research
+  - name: Future
+    region: global
+    notes: applied AI/LLM tooling

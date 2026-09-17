@@ -1,0 +1,95 @@
+# Candidate companies to check with scripts/verify_companies.py.
+#
+# This is NOT the active polling list (that's config/companies.yaml) --
+# it's a queue of names worth checking. Run:
+#
+#   python scripts/verify_companies.py
+#
+# The script tries several slug variants for each candidate against the
+# Greenhouse/Lever/Ashby public APIs and prints which ones actually resolve
+# to a real job board. Pass --append to have it write confirmed matches
+# straight into config/companies.yaml.
+#
+# Many India/France startups do NOT use Greenhouse/Lever/Ashby at all --
+# they use Workday, SmartRecruiters, Welcome to the Jungle (common in
+# France), or a custom careers page. Those won't verify here; they'd need
+# a dedicated Tier 2 (RSS) or Tier 3 (scrape/email) source instead. This
+# list intentionally omits board/slug guesses -- only the verifier's
+# confirmed hits are worth trusting.
+#
+# Add names as you find them (YC directory, Tracxn/Crunchbase lists,
+# LinkedIn "Companies" search, news coverage, VC portfolio pages, etc.)
+# -- this file is meant to grow over time.
+
+candidates:
+  # --- India: LLM / SLM / conversational & voice AI ---
+  - name: Sarvam AI
+    region: india
+    notes: Indian-language LLM/SLM foundation models
+  - name: Krutrim
+    region: india
+    notes: Ola-backed Indian-language LLM
+  - name: CoRover
+    region: india
+  - name: Haptik
+    region: india
+  - name: Yellow.ai
+    region: india
+  - name: Observe.AI
+    region: india
+  - name: Uniphore
+    region: india
+  - name: Gupshup
+    region: india
+  - name: Slang Labs
+    region: india
+  - name: Skit.ai
+    region: india
+  - name: Wysa
+    region: india
+  - name: Innovaccer
+    region: india
+  - name: Gnani.ai
+    region: india
+  - name: Interface.ai
+    region: india
+  - name: Fluid AI
+    region: india
+  - name: Dhwani AI
+    region: india
+  - name: Neysa
+    region: india
+  - name: Two Platforms
+    region: india
+    notes: two.ai
+
+  # --- France: LLM / AI ---
+  - name: Mistral AI
+    region: france
+    notes: already in companies.yaml as ashby/mistral -- kept here for reference
+  - name: Dust
+    region: france
+    notes: dust.tt, AI agent platform
+  - name: Photoroom
+    region: france
+  - name: Nabla
+    region: france
+    notes: health AI
+  - name: Owkin
+    region: france
+    notes: health AI
+  - name: LightOn
+    region: france
+    notes: French LLM company
+  - name: Golem.ai
+    region: france
+    notes: French NLP
+  - name: Illuin Technology
+    region: france
+    notes: makes Croissant LLM
+  - name: Giskard
+    region: france
+    notes: AI testing/evaluation
+  - name: Poolside
+    region: france
+    notes: code-generation LLM, France-founded

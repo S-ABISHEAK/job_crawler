@@ -70,6 +70,42 @@ If it returns JSON instead of a 404, the slug is right. **The seed list in
 `config/companies.yaml` is best-effort** (I don't have your real target list)
 — verify slugs before relying on them, some will be wrong or stale.
 
+## Discovering new companies (don't hand-guess slugs one at a time)
+
+Hand-guessing board slugs doesn't scale, and a lot of companies — especially
+India/France-based ones — don't use Greenhouse/Lever/Ashby at all (Workday,
+SmartRecruiters, Welcome to the Jungle, or a custom careers page are common
+instead). Guessing the wrong board/slug just adds silent 404s, so there's a
+two-step workflow instead:
+
+1. **Add company names** (no slug/board guessing needed) to
+   `config/candidate_companies.yaml`. It's pre-seeded with ~30 India and
+   France AI/LLM/SLM startups as a starting point — add more as you find
+   them (YC's public company directory, Tracxn/Crunchbase lists, LinkedIn
+   company search, VC portfolio pages, news coverage, etc.).
+
+2. **Run the verifier**:
+
+   ```bash
+   python scripts/verify_companies.py            # dry run, prints matches
+   python scripts/verify_companies.py --append    # also writes confirmed
+                                                    # matches into
+                                                    # config/companies.yaml
+   ```
+
+   It tries several slug variants (lowercased, hyphenated, with common
+   suffixes like "AI"/"Technologies" stripped) against all three board
+   APIs for every candidate, and only reports/appends companies that
+   actually return real, live job data. Everything it can't confirm is
+   printed as "no match" — that's expected for companies not on these
+   three platforms, not a bug.
+
+This keeps `config/companies.yaml` free of unverified guesses going
+forward — new entries added via `--append` are only ones the script
+actually confirmed are live. Companies that don't verify here are
+candidates for a dedicated RSS/scrape source instead (see "Adding a new
+source" below) rather than Tier 1.
+
 ## Adding a new source
 
 Edit `config/sources.yaml`:
